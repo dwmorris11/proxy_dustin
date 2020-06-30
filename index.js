@@ -20,7 +20,7 @@ app.get('/favicon.ico/', (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/:productId/imageMain/bundle.js', (req, res) => {
+app.get('/:id/imageMain/bundle.js', (req, res) => {
   proxy.web(req, res, {target: mainHost});
 });
 
@@ -28,35 +28,40 @@ app.get('/api/carousels/:id', (req, res) => {
   proxy.web(req, res, {target: mainHost});
 });
 
-app.get('/:productId/exp/bundle.js', (req, res) => {
+app.get('/:id/exp/bundle.js', (req, res) => {
   proxy.web(req, res, {target: experienceHost});
 });
-app.get('/:id/exp/api', (req, res) => {
+app.get('/:id/exp/*', (req, res) => {
   proxy.web(req, res, {target: experienceHost});
 });
 
-app.get('/:productId/bestNearby/bundle.js', (req, res) => {
+app.get('/:id/fonts/*', (req, res) => {
+  proxy.web(req, res, {target: experienceHost});
+});
+
+app.get('/:id/bestNearby/bundle.js', (req, res) => {
   proxy.web(req, res, {target: attractionHost});
 });
 
-app.get('/:attractionId/api/nearbyattractions', (req, res) => {
+app.get('/:id/api/nearbyattractions', (req, res) => {
   proxy.web(req, res, {target: attractionHost});
 });
 
-app.get('/:productId/reviewsModule/bundle.js', (req, res) => {
+app.get('/:id/reviewsModule/bundle.js', (req, res) => {
   proxy.web(req, res, {target: reviewHost});
 });
-app.get('/:productId/api/reviews', (req, res) => {
+app.get('/:id/api/reviews', (req, res) => {
   proxy.web(req, res, {target: reviewHost});
 });
-app.patch('/:productId/api/reviews/:reviewId', (req, res) => {
+app.patch('/:id/api/reviews/:reviewId', (req, res) => {
   proxy.web(req, res, {target: reviewHost});
 });
-app.patch('/:productId/api/reviews/:reviewId/:imageId', (req, res) => {
+app.patch('/:id/api/reviews/:reviewId/:imageId', (req, res) => {
   proxy.web(req, res, {target: reviewHost});
 });
 
 proxy.on('error', function (err, req, res) {
+  console.log(res);
   res.status(500).send(err);
 });
 
